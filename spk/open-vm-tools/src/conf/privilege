@@ -1,7 +1,0 @@
-{
-    "defaults": {
-        "run-as": "package"
-    },
-    "username": "open-vm-tools",
-    "join-groupname": "wheel"
-}
