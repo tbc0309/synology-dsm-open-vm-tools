@@ -6,7 +6,7 @@ PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS)-$(PKG_BUILD).$(PKG_EXT)
 PKG_DIST_SITE = https://github.com/vmware/open-vm-tools/releases/download/stable-$(PKG_VERS)
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)-$(PKG_BUILD)
 
-DEPENDS = cross/libmspack cross/glib cross/protobuf cross/openssl cross/fuse cross/curl cross/libtirpc cross/procps-ng cross/icu
+DEPENDS = cross/libmspack cross/glib cross/protobuf cross/openssl cross/fuse cross/curl cross/libtirpc cross/procps-ng cross/icu cross/libiconv
 
 HOMEPAGE = https://github.com/vmware/open-vm-tools
 COMMENT  = VMware open-vm-tools project
