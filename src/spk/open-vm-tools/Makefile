@@ -1,4 +1,4 @@
-SPK_NAME = open-vm-tools-12
+SPK_NAME = open-vm-tools
 SPK_VERS = 12.4.0
 SPK_REV = 1
 SPK_ICON = src/open-vm-tools.png
