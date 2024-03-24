@@ -1,0 +1,60 @@
+name: build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "tag"
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [x64-7.1, aarch64-7.1]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Init Env
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        sudo timedatectl set-timezone "Asia/Shanghai"
+
+        sudo apt update
+        sudo apt install -y moreutils
+
+    - name: Checkout SynoCommunity Source and Docker Image
+      run: |
+        docker pull ghcr.io/synocommunity/spksrc
+        git clone https://github.com/SynoCommunity/spksrc.git
+        cp -rf src/* spksrc
+
+    - name: Build Package
+      run: |
+        ROOT_PATH=${{ github.workspace }}
+        docker run -v ${ROOT_PATH}/spksrc:/spksrc \
+            -v /usr/bin/sponge:/usr/bin/sponge \
+            -w /spksrc/spk/open-vm-tools \
+            ghcr.io/synocommunity/spksrc \
+            make arch-${{ matrix.target }}
+
+    - name: Upload to Artifacts
+      if: inputs.tag == ''
+      uses: actions/upload-artifact@v3
+      with:
+        name: packages
+        path: |
+          spksrc/packages/*.spk
+        retention-days: 5
+
+    - name: Release
+      if: inputs.tag != ''
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ inputs.tag }}
+        files: spksrc/packages/*.spk
