@@ -1,3 +1,10 @@
+#
+# Copyright (C) 2022 Ing <https://github.com/wjz304>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+
 name: build
 
 on:
@@ -25,36 +32,30 @@ jobs:
         git config --global user.name "github-actions[bot]"
         sudo timedatectl set-timezone "Asia/Shanghai"
 
-        sudo apt update
-        sudo apt install -y moreutils
-
     - name: Checkout SynoCommunity Source and Docker Image
       run: |
         docker pull ghcr.io/synocommunity/spksrc
-        git clone https://github.com/SynoCommunity/spksrc.git
+        git clone --depth=1 https://github.com/SynoCommunity/spksrc.git
         cp -rf src/* spksrc
 
     - name: Build Package
       run: |
-        ROOT_PATH=${{ github.workspace }}
-        docker run -v ${ROOT_PATH}/spksrc:/spksrc \
-            -v /usr/bin/sponge:/usr/bin/sponge \
-            -w /spksrc/spk/open-vm-tools \
-            ghcr.io/synocommunity/spksrc \
-            make arch-${{ matrix.target }}
+        ROOT_PATH="${{ github.workspace }}"
+        MAKE_ARCH="arch-${{ matrix.target }}"
+        docker run -v ${ROOT_PATH}/spksrc:/spksrc -w /spksrc/spk/open-vm-tools ghcr.io/synocommunity/spksrc make ${MAKE_ARCH}
 
     - name: Upload to Artifacts
       if: inputs.tag == ''
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: packages
+        name: ${{ matrix.target }}
         path: |
           spksrc/packages/*.spk
         retention-days: 5
 
     - name: Release
       if: inputs.tag != ''
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ inputs.tag }}
         files: spksrc/packages/*.spk
