@@ -1,5 +1,5 @@
 PKG_NAME = procps-ng
-PKG_VERS = 3.3.8
+PKG_VERS = 4.0.4
 PKG_EXT = tar.xz
 PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = http://downloads.sourceforge.net/project/$(PKG_NAME)/Production
