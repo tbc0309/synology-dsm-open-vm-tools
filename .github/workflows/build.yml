@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target: [x64-7.1]
+        target: [x64-7.0]
 
     steps:
     - name: Checkout
