@@ -4,8 +4,6 @@ This is a port of the [open-vm-tools](https://github.com/vmware/open-vm-tools) i
 
 Here you will find ready-built binary installable `.spk`-packages for `Synology DSM`, together with the necessary sources, should you choose to build it yourself.
 
-**Read this in other languages: | [English](README.md) |**
-
 ## open-vm-tools
 
 `open-vm-tools` is a set of services and modules that enable several features in `VMware` products for better management of, and seamless user interactions with, guest operating systems.
