@@ -10,7 +10,7 @@ MAINTAINER = vmware
 DESCRIPTION = open-vm-tools is a set of services and modules that enable several features in VMware products for better management of, and seamless user interactions with, guests. ⚠️安装完毕SSH修复：sudo sed -i 's/package/root/g' /var/packages/open-vm-tools/conf/privilege
 RELOAD_UI = yes
 DISPLAY_NAME = VMware Tools
-CHANGELOG = "SPK Open-vm-tools | 13 May 2025 | Build 24276846"
+CHANGELOG = "SPK Open-vm-tools | 13 May 2025 | Build 24697584"
 
 HOMEPAGE = https://github.com/vmware/open-vm-tools
 LICENSE  = GPLv2/LGPLv2.1
