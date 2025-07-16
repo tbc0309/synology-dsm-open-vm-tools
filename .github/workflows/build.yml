@@ -42,7 +42,7 @@ jobs:
       run: |
         ROOT_PATH="${{ github.workspace }}"
         MAKE_ARCH="arch-${{ matrix.target }}"
-        docker run -v ${ROOT_PATH}/spksrc:/spksrc -w /spksrc/spk/open-vm-tools ghcr.io/synocommunity/spksrc make ${MAKE_ARCH}
+        docker run -e TZ=Asia/Shanghai -v /etc/localtime:/etc/localtime:ro -v ${ROOT_PATH}/spksrc:/spksrc -w /spksrc/spk/open-vm-tools ghcr.io/synocommunity/spksrc make ${MAKE_ARCH}
 
     - name: Upload to Artifacts
       if: inputs.tag == ''
